@@ -4,17 +4,20 @@
 
 Must have:
 
-- Python3.12
+- Python3.12 (incase you have python < 3.12, use (<https://webinstall.dev/pyenv/>))
 - Postgresql
 -
 
 ```bash
+python -V # must return >=3.12
 # setup the virtualenv and install dependecies
 virtualenv .venv
 
 source .venv/bin/activate # linux
 
 pip install -r requirements.txt
+
+cp .env.example .env # create a copy of .env variables
 
 python manage.py makemigrations # create and track all migrations
 
