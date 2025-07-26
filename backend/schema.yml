@@ -1,0 +1,29 @@
+openapi: 3.0.3
+info:
+  title: Healthcare Appointment System API
+  version: 1.0.0
+  description: API for managing healthcare appointments
+paths:
+  /api/test/:
+    get:
+      operationId: api_test_retrieve
+      tags:
+        - api
+      security:
+        - tokenAuth: []
+        - jwtAuth: []
+        - {}
+      responses:
+        "200":
+          description: No response body
+components:
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"

@@ -35,6 +35,7 @@ INSTALLED_APPS: list[str] = [
     # third party libs
     "rest_framework",
     "rest_framework.authtoken",
+    "drf_spectacular",
 ]
 
 MIDDLEWARE: list[str] = [
@@ -63,8 +64,16 @@ REST_FRAMEWORK: dict = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
     ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
+
+SPECTACULAR_SETTINGS: dict[str, str | bool] = {
+    "TITLE": "Your Project API",
+    "DESCRIPTION": "Your project description",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+}
 
 ROOT_URLCONF: str = "has.urls"
 

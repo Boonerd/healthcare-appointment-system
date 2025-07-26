@@ -42,3 +42,5 @@ Expected response:
   "data": { "time": "2025-07-26T18:19:34.163671" }
 }
 ```
+
+For swagger UI head over to: <http://127.0.0.1:8000/api/schema/swagger-ui/>
