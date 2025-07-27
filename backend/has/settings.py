@@ -69,8 +69,8 @@ REST_FRAMEWORK: dict = {
 
 
 SPECTACULAR_SETTINGS: dict[str, str | bool] = {
-    "TITLE": "Your Project API",
-    "DESCRIPTION": "Your project description",
+    "TITLE": "HAS API",
+    "DESCRIPTION": "HEALTHCARE APPOINMENT SYSTEM",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
 }
@@ -104,8 +104,10 @@ DATABASES: dict = {
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+# register custom models
+AUTH_USER_MODEL = "has_api.User"
 
-
+APPEND_SLASH = True
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 

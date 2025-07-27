@@ -26,6 +26,8 @@ python manage.py migrate # apply migrations to DB
 python manage.py createsuperuser #superadmin
 
 python manage.py runserver
+
+python manage.py flush # reset the db
 ```
 
 ```bash
