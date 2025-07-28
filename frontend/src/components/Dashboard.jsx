@@ -5,7 +5,8 @@ const Dashboard = () => {
   return (
     <div className="wrapper dashboard-wrapper">
       <h2>Dashboard</h2>
-      <p className="protected-text">Welcome, Patriciah 👋</p>
+      <p className="protected-text">Welcome 👋</p>
+
       
       <div className="dashboard-cards">
         <div className="card">
