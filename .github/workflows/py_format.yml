@@ -1,0 +1,37 @@
+name: Ruff Format Check
+
+on:
+  push:
+    paths:
+      - "**.py"
+  pull_request:
+    paths:
+      - "**.py"
+
+jobs:
+  ruff-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pipx
+        run: |
+          sudo apt update
+          sudo apt install pipx
+
+      - name: Install Ruff
+        run: pipx install ruff
+
+      - name: Run Ruff (Check mode)
+        run: ruff check .
+
+      - name: Run Ruff Format
+        run: |
+          ruff format .
+          git diff --exit-code || (echo "Ruff formatting needed" && exit 1)
