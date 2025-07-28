@@ -46,3 +46,4 @@ Expected response:
 ```
 
 For swagger UI head over to: <http://127.0.0.1:8000/api/schema/swagger-ui/>
+

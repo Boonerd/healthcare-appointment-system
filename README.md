@@ -17,3 +17,5 @@ cd backend
 
 cd frontend
 ```
+
+![swagger_ui](backend/images/image.png)

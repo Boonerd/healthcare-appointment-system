@@ -1,6 +1,8 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from datetime import timedelta
+
 
 load_dotenv()
 
@@ -36,10 +38,12 @@ INSTALLED_APPS: list[str] = [
     "rest_framework",
     "rest_framework.authtoken",
     "drf_spectacular",
+    "debug_toolbar",
 ]
 
 MIDDLEWARE: list[str] = [
     "django.middleware.security.SecurityMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -75,6 +79,10 @@ SPECTACULAR_SETTINGS: dict[str, str | bool] = {
     "SERVE_INCLUDE_SCHEMA": False,
 }
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 ROOT_URLCONF: str = "has.urls"
 
 TEMPLATES: list[dict] = [
@@ -107,7 +115,7 @@ DATABASES: dict = {
 # register custom models
 AUTH_USER_MODEL = "has_api.User"
 
-APPEND_SLASH = True
+# APPEND_SLASH = True
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
@@ -148,3 +156,9 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
