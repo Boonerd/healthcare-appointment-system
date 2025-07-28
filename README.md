@@ -1,5 +1,7 @@
 # healthcare-appointment-system
 
+Main branch: https://github.com/Boonerd/healthcare-appointment-system/tree/prod
+
 Backend: Django, Postgresql, OpenApi
 './backend/README.md'
 
