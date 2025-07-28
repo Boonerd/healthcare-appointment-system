@@ -70,7 +70,9 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
         ),
         ("patient", "Patient"),
     )
-    national_id = models.CharField(max_length=12, null=False, unique=True)
+    national_id = models.CharField(
+        max_length=12, null=False, unique=True, db_index=True
+    )
     email = models.EmailField(unique=True, null=False)
     phone_number = models.CharField(max_length=15, unique=True, null=False)
     full_name = models.CharField(max_length=50, null=False, unique=True)
@@ -87,7 +89,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
 
     USERNAME_FIELD = "national_id"
-    REQUIRED_FIELDS = ["email", "full_name"]
+    REQUIRED_FIELDS = ["email", "full_name", "phone_number"]
 
     objects = CustomUserManager()
 

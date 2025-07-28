@@ -5,6 +5,7 @@ from drf_spectacular.views import (
     SpectacularRedocView,
     SpectacularSwaggerView,
 )
+from debug_toolbar.toolbar import debug_toolbar_urls
 
 urlpatterns: list = [
     path("admin/", admin.site.urls),
@@ -22,4 +23,4 @@ urlpatterns: list = [
         SpectacularRedocView.as_view(url_name="schema"),
         name="redoc",
     ),
-]
+] + debug_toolbar_urls()
