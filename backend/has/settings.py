@@ -2,7 +2,7 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 from datetime import timedelta
-
+from urllib.parse import urlparse, parse_qsl
 
 load_dotenv()
 
@@ -17,12 +17,11 @@ SECRET_KEY: str = os.getenv("SECRET_KEY", "SJcY1JhXhXReUZpcEbH5WuLRvbBI0B7OMeEyC
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG: bool = bool(os.getenv("DEBUG", False))
+DEBUG: bool = os.getenv("DEBUG", "False").lower() in ("true", "1", "yes")
 
 print(DEBUG)
 
 ALLOWED_HOSTS: list[str] = ["*"]
-
 
 # Application definition
 
@@ -43,6 +42,7 @@ INSTALLED_APPS: list[str] = [
 
 MIDDLEWARE: list[str] = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -79,6 +79,7 @@ SPECTACULAR_SETTINGS: dict[str, str | bool] = {
     "SERVE_INCLUDE_SCHEMA": False,
 }
 
+# DEBUGGING
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
@@ -106,12 +107,28 @@ WSGI_APPLICATION: str = "has.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES: dict = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+if DEBUG:
+    DATABASES: dict = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
+else:
+
+    tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
+
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": tmpPostgres.path.replace("/", ""),  # type: ignore
+            "USER": tmpPostgres.username,
+            "PASSWORD": tmpPostgres.password,
+            "HOST": tmpPostgres.hostname,
+            "PORT": 5432,
+            "OPTIONS": dict(parse_qsl(tmpPostgres.query)),  # type: ignore
+        }
+    }
 # register custom models
 AUTH_USER_MODEL = "has_api.User"
 
@@ -162,3 +179,12 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")

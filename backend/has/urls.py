@@ -6,6 +6,7 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 import debug_toolbar
+import has_api.views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -24,3 +25,5 @@ urlpatterns = [
     ),
     path("__debug__/", include(debug_toolbar.urls)),
 ]
+
+handler404 = has_api.views.custom_404_view

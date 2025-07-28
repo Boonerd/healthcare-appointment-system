@@ -27,6 +27,8 @@ python manage.py createsuperuser #superadmin
 
 python manage.py runserver
 
+gunicorn has.wsgi # with gunicorn
+
 python manage.py flush # reset the db
 ```
 
@@ -46,4 +48,3 @@ Expected response:
 ```
 
 For swagger UI head over to: <http://127.0.0.1:8000/api/schema/swagger-ui/>
-

@@ -12,6 +12,7 @@ from .views import (
     CancelAppointmentView,
     DoctorAvailabilityView,
     PatientListView,
+    custom_404_view,
 )
 from rest_framework_simplejwt.views import TokenRefreshView
 
@@ -46,3 +47,4 @@ urlpatterns = [
         name="doctor availability",
     ),
 ]
+

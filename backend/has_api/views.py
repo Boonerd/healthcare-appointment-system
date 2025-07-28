@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
@@ -236,3 +237,7 @@ class DoctorAvailabilityView(BaseAPIView):
                 data={"message": "Availability updated successfully."}
             )
         return self.error_response(data=serializer.errors)
+
+
+def custom_404_view(request, exception):
+    return HttpResponseRedirect("/api/schema/swagger-ui/")
